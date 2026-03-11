@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}{{ store.name }} | Okoa Food{% endblock %}
+
+{% block content %}
+
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+
+<img src="{{ store.image|default:'https://picsum.photos/600/300' }}"
+class="w-full h-40 object-cover">
+
+<div class="p-4">
+
+<h1 class="text-xl font-bold">
+{{ store.name }}
+</h1>
+
+<p class="text-sm text-gray-500 mb-3">
+{{ store.estate }}
+</p>
+
+<p class="text-sm mb-4">
+{{ store.description }}
+</p>
+
+<!-- BAGS -->
+{% if bags %}
+
+<div class="space-y-3 mb-5">
+
+{% for bag in bags %}
+
+<div class="border rounded-lg p-3 flex justify-between">
+
+<div>
+
+<p class="font-medium">
+{{ bag.category }}
+</p>
+
+<p class="text-xs text-gray-500">
+Pickup: {{ bag.pickup_start }} - {{ bag.pickup_end }}
+</p>
+
+</div>
+
+<span class="font-bold text-okoa">
+KSh {{ bag.price }}
+</span>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<p class="text-gray-500 mb-4">
+No surprise bags available today.
+</p>
+
+{% endif %}
+
+<!-- RESERVE BUTTON -->
+
+<button class="w-full bg-okoa text-white py-3 rounded-xl font-semibold">
+Reserve Now
+</button>
+
+<p class="text-xs text-gray-500 mt-3 text-center">
+After reserving, coordinate pickup via phone:
+<strong>{{ store.phone|default:"Phone coming soon" }}</strong>
+</p>
+
+</div>
+</div>
+
+{% endblock %}

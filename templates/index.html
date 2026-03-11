@@ -1,0 +1,236 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Okoa Food{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="relative h-[70vh] flex items-center justify-center text-center text-white">
+
+<img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f"
+class="absolute inset-0 w-full h-full object-cover">
+
+<div class="absolute inset-0 bg-black/40"></div>
+
+<div class="relative z-10 px-4">
+
+<h1 class="text-4xl md:text-5xl font-extrabold mb-6">
+SAVE GOOD FOOD FROM <br> GOING TO WASTE
+</h1>
+
+<div class="flex gap-3 justify-center">
+
+<a href="{% url 'browse' %}"
+class="bg-white text-black px-5 py-2 rounded-full font-semibold">
+Browse Bags
+</a>
+
+<a href="{% url 'browse' %}"
+class="bg-okoa px-5 py-2 rounded-full font-semibold">
+Get Your Surprise Bag
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- INTRO TEXT -->
+<section class="bg-gray-100 text-center py-16 px-6">
+
+<p class="max-w-xl mx-auto text-gray-700 text-lg">
+Okoa Food helps people rescue surplus food from restaurants,
+bakeries and supermarkets in Nairobi — at a fraction of the price.
+</p>
+
+</section>
+
+
+<!-- WHY USE -->
+<section class="text-center py-16 px-6">
+
+<h2 class="text-3xl font-bold mb-12">
+Why Use <span class="text-okoa">Okoa Food</span>
+</h2>
+
+<div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+
+<div>
+
+<div class="text-okoa mb-2">
+🍱
+</div>
+
+<h3 class="font-semibold mb-2">
+Save Money
+</h3>
+
+<p class="text-sm text-gray-600">
+Enjoy good food at up to 70% off.
+</p>
+
+</div>
+
+<div>
+
+<div class="text-okoa mb-2">
+🌍
+</div>
+
+<h3 class="font-semibold mb-2">
+Reduce Waste
+</h3>
+
+<p class="text-sm text-gray-600">
+Help restaurants reduce food waste.
+</p>
+
+</div>
+
+<div>
+
+<div class="text-okoa mb-2">
+📍
+</div>
+
+<h3 class="font-semibold mb-2">
+Discover Local Food
+</h3>
+
+<p class="text-sm text-gray-600">
+Find hidden gems in your neighbourhood.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- CATEGORY SCROLLER -->
+<section class="bg-okoa text-white py-3 overflow-x-auto">
+
+<div class="flex gap-6 whitespace-nowrap px-6 text-sm">
+
+<span>Burritos</span>
+<span>Salads</span>
+<span>Donuts</span>
+<span>Breads</span>
+<span>Pastries</span>
+<span>Groceries</span>
+<span>Sushi</span>
+<span>Pizza</span>
+<span>Burgers</span>
+
+</div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+<section class="bg-emerald-900 text-white py-20 px-6">
+
+<div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+
+<div>
+
+<h2 class="text-3xl font-bold mb-4">
+How It Works
+</h2>
+
+<p class="mb-6 text-sm text-gray-200">
+Reserve a surprise food bag and pick it up before closing time.
+</p>
+
+<ol class="space-y-3 text-sm">
+
+<li>1. Browse food bags near you</li>
+<li>2. Reserve a surprise bag</li>
+<li>3. Pick it up during pickup time</li>
+
+</ol>
+
+</div>
+
+<img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
+class="rounded-xl">
+
+</div>
+
+</section>
+
+
+<!-- FEATURED BAGS -->
+<section class="py-16 px-6 max-w-6xl mx-auto">
+
+<h2 class="text-2xl font-bold mb-8">
+Available Today
+</h2>
+
+{% if bags %}
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+{% for bag in bags %}
+
+<a href="{% url 'store' bag.store.id %}"
+class="bg-white rounded-xl shadow hover:shadow-md overflow-hidden">
+
+<img src="{{ bag.image|default:'https://picsum.photos/300' }}"
+class="h-32 w-full object-cover">
+
+<div class="p-3">
+
+<h3 class="font-semibold text-sm">
+{{ bag.store.name }}
+</h3>
+
+<p class="text-xs text-gray-500">
+{{ bag.category }}
+</p>
+
+<p class="text-okoa font-bold mt-1">
+KSh {{ bag.price }}
+</p>
+
+</div>
+
+</a>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<p class="text-gray-500">
+No bags available today.
+</p>
+
+{% endif %}
+
+</section>
+
+
+<!-- BUSINESS CTA -->
+<section class="bg-gray-100 text-center py-16 px-6">
+
+<h2 class="text-2xl font-bold mb-4">
+Own a Restaurant?
+</h2>
+
+<p class="text-gray-600 mb-6">
+Sell your surplus food and reduce waste.
+</p>
+
+<a href="#" class="bg-okoa text-white px-6 py-3 rounded-full">
+Partner With Us
+</a>
+
+</section>
+
+
+{% endblock %}

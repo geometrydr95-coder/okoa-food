@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block title %}Your Profile | Okoa Food{% endblock %}
+
+{% block content %}
+
+<!-- PROFILE HEADER -->
+<section class="mb-6">
+
+<div class="bg-white rounded-xl shadow-sm p-4 flex items-center gap-4">
+
+<!-- avatar -->
+<div class="bg-okoa text-white rounded-full h-12 w-12 flex items-center justify-center text-lg font-bold">
+{{ user.username|slice:":1"|upper }}
+</div>
+
+<div>
+
+<h2 class="font-semibold text-lg">
+{{ user.username }}
+</h2>
+
+<p class="text-sm text-gray-500">
+{{ user.email }}
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- RESERVATION HISTORY -->
+<section>
+
+<h2 class="text-lg font-semibold mb-3">
+Your Reservations
+</h2>
+
+{% if reservations %}
+
+<div class="space-y-3">
+
+{% for reservation in reservations %}
+
+<div class="bg-white rounded-xl shadow-sm p-3">
+
+<div class="flex justify-between items-start">
+
+<div>
+
+<h3 class="font-semibold">
+{{ reservation.bag.store.name }}
+</h3>
+
+<p class="text-sm text-gray-500">
+{{ reservation.bag.category }}
+</p>
+
+<p class="text-xs text-gray-400 mt-1">
+Pickup: {{ reservation.bag.pickup_start }}
+</p>
+
+</div>
+
+<div class="text-right">
+
+<p class="font-bold text-okoa">
+KSh {{ reservation.bag.price }}
+</p>
+
+{% if reservation.status == "reserved" %}
+<span class="text-xs text-yellow-600 font-medium">
+Reserved
+</span>
+{% elif reservation.status == "completed" %}
+<span class="text-xs text-green-600 font-medium">
+Picked Up
+</span>
+{% elif reservation.status == "cancelled" %}
+<span class="text-xs text-red-600 font-medium">
+Cancelled
+</span>
+{% endif %}
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<!-- EMPTY STATE -->
+<div class="text-center text-gray-500 py-10">
+
+<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto mb-3 text-gray-400"
+fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round"
+d="M3 3h18v18H3z"/>
+</svg>
+
+<p class="mb-3">
+You haven't reserved any food bags yet.
+</p>
+
+<a href="{% url 'browse' %}" class="bg-okoa text-white px-4 py-2 rounded-lg text-sm">
+Browse Available Bags
+</a>
+
+</div>
+
+{% endif %}
+
+</section>
+
+
+<!-- ACCOUNT ACTIONS -->
+<section class="mt-8">
+
+<div class="bg-white rounded-xl shadow-sm divide-y text-sm">
+
+<a href="#" class="block px-4 py-3 hover:bg-gray-50">
+Edit Profile
+</a>
+
+<a href="#" class="block px-4 py-3 hover:bg-gray-50">
+Payment & M-Pesa Info
+</a>
+
+<a href="{% url 'logout' %}" class="block px-4 py-3 text-red-600 hover:bg-gray-50">
+Log Out
+</a>
+
+</div>
+
+</section>
+
+{% endblock %}

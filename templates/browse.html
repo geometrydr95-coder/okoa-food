@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Browse Surprise Bags{% endblock %}
+
+{% block content %}
+
+<h1 class="text-xl font-bold mb-4">
+Browse Food Bags
+</h1>
+
+<!-- FILTERS -->
+<form method="GET" class="flex gap-2 mb-5">
+
+<select name="category" class="border rounded-lg px-2 py-2 text-sm">
+
+<option value="">Category</option>
+<option value="bakery">Bakery</option>
+<option value="restaurant">Restaurant</option>
+<option value="groceries">Groceries</option>
+
+</select>
+
+<select name="price" class="border rounded-lg px-2 py-2 text-sm">
+
+<option value="">Price</option>
+<option value="100">Under KSh 100</option>
+<option value="300">Under KSh 300</option>
+<option value="500">Under KSh 500</option>
+
+</select>
+
+<button class="bg-okoa text-white px-4 rounded-lg text-sm">
+Filter
+</button>
+
+</form>
+
+<!-- LIST -->
+{% if bags %}
+
+<div class="space-y-3">
+
+{% for bag in bags %}
+
+<a href="{% url 'store' bag.store.id %}" class="block bg-white rounded-xl shadow-sm p-3">
+
+<div class="flex justify-between items-start">
+
+<div>
+
+<h3 class="font-semibold">
+{{ bag.store.name }}
+</h3>
+
+<p class="text-sm text-gray-500">
+{{ bag.category }}
+</p>
+
+<p class="text-xs text-gray-400 mt-1">
+Pickup: {{ bag.pickup_start }} - {{ bag.pickup_end }}
+</p>
+
+</div>
+
+<span class="font-bold text-okoa">
+KSh {{ bag.price }}
+</span>
+
+</div>
+
+</a>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="text-center text-gray-500 py-10">
+No bags available in this area right now.
+</div>
+
+{% endif %}
+
+{% endblock %}
